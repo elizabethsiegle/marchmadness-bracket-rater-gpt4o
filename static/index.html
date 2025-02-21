@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏀 AI Basketball Bracket Analyzer 🏀</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Comic Neue', cursive;
+            background: linear-gradient(to bottom right, #ff7f50, #ff4500);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Changed to flex-start to allow scrolling */
+            min-height: 100vh;
+            overflow: auto; /* Allow scrolling */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border: 4px dashed #ff4500;
+            position: relative;
+            overflow: visible; /* Ensure container doesn't cut off content */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff4500;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        h2 {
+            text-align: center;
+            color: #ff4500;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: wobble 3s infinite;
+        }
+
+        .upload-section, .paste-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .upload-btn, .paste-btn {
+            background-color: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s, background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            text-align: center;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .upload-btn:hover, .paste-btn:hover {
+            background-color: #e04000;
+            transform: scale(1.1);
+        }
+
+        #analyzeBtn {
+            background-color: #32cd32;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s, background-color 0.3s;
+            display: block;
+            margin: 1rem auto 0;
+            width: fit-content;
+            text-align: center;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        #analyzeBtn:hover {
+            background-color: #28a428;
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .analyze-section {
+            text-align: center;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            max-height: 300px;
+            margin: 1rem auto;
+            display: none;
+            border-radius: 10px;
+            border: 4px dashed #ff4500;
+            animation: float 3s infinite;
+        }
+
+        #pasteBox {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 4px dashed #ff4500;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-sizing: border-box;
+            margin-top: 1rem;
+            display: block;
+            text-align: center;
+            line-height: 150px;
+            color: #888;
+            background-color: #f9f9f9;
+            font-family: 'Comic Neue', cursive;
+            animation: shake 5s infinite;
+        }
+
+        #result {
+            margin-top: 2rem;
+            text-align: center;
+            display: none;
+            font-size: 1.2rem;
+            color: #ff4500;
+            animation: wobble 2s infinite;
+            max-height: 300px; /* Limit height and add scroll */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding: 10px;
+            border: 2px dashed #ff4500;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+            width: 100%;
+            border-top: 4px dashed #ff4500;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes wobble {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(5deg);
+            }
+            75% {
+                transform: rotate(-5deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px);
+            }
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* Basketball Emojis */
+        .basketball {
+            position: absolute;
+            font-size: 2rem;
+            animation: bounce 1s infinite;
+        }
+
+        .basketball-1 {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .basketball-2 {
+            top: 20%;
+            right: 5%;
+            animation-delay: 0.5s;
+        }
+
+        .basketball-3 {
+            bottom: 10%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .basketball-4 {
+            bottom: 20%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+        .remove-btn {
+            background-color: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s, background-color 0.3s;
+            display: block;
+            margin: 1rem auto 0;
+            width: fit-content;
+            text-align: center;
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .remove-btn:hover {
+            background-color: #e04000;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="basketball basketball-1">🏀</div>
+    <div class="basketball basketball-2">🏀</div>
+    <div class="basketball basketball-3">🏀</div>
+    <div class="basketball basketball-4">🏀</div>
+    <div class="container">
+        <h1>🏀 AI Basketball Bracket Analyzer 🏀</h1>
+        <h2>Upload or Paste a Basketball Bracket and Ask Questions!</h2>
+        <form id="uploadForm">
+            <div class="upload-section">
+                <label for="imageInput" class="upload-btn">Upload a Bracket Image</label>
+                <input type="file" id="imageInput" accept="image/*">
+            </div>
+            <div class="paste-section">
+                <div id="pasteBox">Paste a Bracket Image Here</div>
+                <button id="removeImageBtn" class="remove-btn" style="display: none;">Remove Image 🗑️</button>
+            </div>
+            <img id="imagePreview" alt="Image preview" />
+            <div class="analyze-section">
+                <button type="submit" id="analyzeBtn">Analyze Bracket</button>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+    <footer>
+        Built with ❤️ using <a href="https://developers.cloudflare.com/workers-ai">Cloudflare Workers AI</a><br><br> <a href="https://github.com/elizabethsiegle/ask-qs-about-pic-llama-3.2">Check✅ out the code on GitHub</a>
+    </footer>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+const pasteBox = document.getElementById('pasteBox');
+const imagePreview = document.getElementById('imagePreview');
+const textInput = document.getElementById('textInput');
+const uploadForm = document.getElementById('uploadForm');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const resultDiv = document.getElementById('result');
+const removeImageBtn = document.getElementById('removeImageBtn');
+
+let pastedImageFile = null; // Variable to store the pasted image file
+
+// Handle file upload
+imageInput.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        displayImage(file);
+        pastedImageFile = null; // Clear pasted image if a file is uploaded
+    }
+});
+
+// Handle image paste
+pasteBox.addEventListener('paste', function(event) {
+    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    for (const item of items) {
+        if (item.type.indexOf('image') !== -1) {
+            const blob = item.getAsFile();
+            displayImage(blob);
+            pastedImageFile = blob; // Store the pasted image file
+            removeImageBtn.style.display = 'block'; // Show the "Remove Image" button
+            break;
+        }
+    }
+});
+
+// Handle "Remove Image" button click
+removeImageBtn.addEventListener('click', function() {
+    // Reset the paste box
+    pasteBox.textContent = 'Paste a Bracket Image Here';
+    pasteBox.style.backgroundImage = '';
+    pasteBox.style.backgroundColor = '#f9f9f9';
+    pasteBox.style.color = '#888';
+    pastedImageFile = null; // Clear the pasted image file
+    removeImageBtn.style.display = 'none'; // Hide the "Remove Image" button
+});
+
+// Display image preview
+function displayImage(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        // Clear the paste box content
+        pasteBox.textContent = '';
+        pasteBox.style.backgroundImage = `url(${e.target.result})`;
+        pasteBox.style.backgroundSize = 'contain';
+        pasteBox.style.backgroundPosition = 'center';
+        pasteBox.style.backgroundRepeat = 'no-repeat';
+        pasteBox.style.backgroundColor = 'transparent';
+        pasteBox.style.color = 'transparent';
+
+        // Hide the image preview element
+        imagePreview.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+}
+
+// Handle form submission
+uploadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const imageFile = imageInput.files[0] || pastedImageFile;
+    if (!imageFile) {
+        alert('Please upload or paste an image');
+        return;
+    }
+
+    analyzeBtn.disabled = true;
+    analyzeBtn.textContent = 'Analyzing...';
+    resultDiv.textContent = '';
+
+    try {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+
+        console.log("Sending request to analyze-image...");
+        const response = await fetch('/analyze-image', {
+            method: 'POST',
+            body: formData
+        });
+        
+        console.log("Got response:", response);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log("Response data:", data);
+        
+        resultDiv.innerHTML = data.message;
+        resultDiv.style.display = 'block';
+    } catch (error) {
+        console.error('Error:', error);
+        resultDiv.textContent = `Error analyzing image: ${error.message}`;
+    } finally {
+        analyzeBtn.disabled = false;
+        analyzeBtn.textContent = 'Analyze Bracket';
+    }
+});
+
+async function processImage(file) {
+    const reader = new FileReader();
+    reader.onload = async function(event) {
+        try {
+            imagePreview.src = event.target.result;
+            imagePreview.style.display = "block";
+            pastePreview.style.display = "none";
+            
+            const formData = new FormData();
+            formData.append("image", file);
+
+            result.textContent = "Analyzing bracket...";
+            const response = await fetch("/analyze-image", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Response data:", data); // Debug log
+            result.textContent = data.message || "Analysis failed.";
+        } catch (error) {
+            console.error("Error processing image:", error);
+            result.textContent = "Error analyzing image: " + error.message;
+        }
+    };
+    reader.readAsDataURL(file);
+}
+    </script>
+</body>
+</html>
