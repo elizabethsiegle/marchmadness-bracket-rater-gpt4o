@@ -18,7 +18,12 @@
 		"wrangler": "^3.109.1"
 	},
 	"dependencies": {
+		"@azure/cognitiveservices-websearch": "^3.0.1",
+		"@azure/ms-rest-azure-js": "^2.1.0",
+		"@google/generative-ai": "^0.22.0",
+		"fs": "^0.0.1-security",
 		"openai": "^4.85.3",
-		"replicate": "^1.0.1"
+		"replicate": "^1.0.1",
+		"serpapi": "^2.1.0"
 	}
 }
