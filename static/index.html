@@ -255,25 +255,129 @@
         .search-results {
             margin: 20px;
             line-height: 1.6;
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+
+        .search-results h2 {
+            color: #ff4500;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
         .team-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 30px;
+            border: 2px solid #ff4500;
         }
+
+        .team-section h2 {
+            color: #ff4500;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: left;
+            border-bottom: 2px solid #ff4500;
+            padding-bottom: 10px;
+        }
+
         .news-item {
-            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
         }
+
         .news-item h3 {
             color: #2c5282;
             margin-bottom: 8px;
+            font-size: 1.1rem;
+            line-height: 1.4;
         }
+
         .news-item p {
-            margin-bottom: 15px;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
-        hr {
+
+        .news-item small {
+            color: #718096;
+            font-style: italic;
+        }
+
+        .news-item h3 a {
+            color: #2c5282;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .news-item h3 a:hover {
+            color: #ff4500;
+            text-decoration: underline;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #718096;
+            flex-wrap: wrap;
+        }
+
+        .news-meta .source {
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .news-meta .date {
+            font-style: italic;
+        }
+
+        .read-more {
+            color: #ff4500;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: auto;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more:hover {
+            color: #ff6347;
+            transform: translateX(5px);
+        }
+
+        .team-divider {
             margin: 25px 0;
             border: 0;
-            border-top: 1px solid #eee;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff4500, transparent);
         }
+
+        /* Add some hover effects */
+        .team-section:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(255, 69, 0, 0.1);
+        }
+
+        .news-item:hover {
+            background: #fff8f6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
         .analysis {
             white-space: pre-line;
             line-height: 2;
@@ -291,6 +395,123 @@
             margin: 10px 0;
             content: "";
         }
+        .form-group {
+            text-align: center;
+            margin: 2rem auto;
+            position: relative;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: #ff4500;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: wobble 3s infinite;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 3px solid #ff4500;
+            border-radius: 15px;
+            background-color: white;
+            color: #333;
+            cursor: pointer;
+            font-family: 'Comic Neue', cursive;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff4500' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(255, 69, 0, 0.1);
+        }
+
+        .form-group select:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(255, 69, 0, 0.2);
+            border-color: #ff6347;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6347;
+            box-shadow: 0 0 0 3px rgba(255, 69, 0, 0.3);
+        }
+
+        .form-group::after {
+            content: '🏀';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            pointer-events: none;
+        }
+
+        .form-group::before {
+            content: '🏀';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            animation-delay: 1s;
+            pointer-events: none;
+        }
+
+        .news-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .news-links li {
+            margin-bottom: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .news-links li.team-in-title {
+            background: #fff8f6;
+            border-left: 4px solid #ff4500;
+        }
+
+        .news-links li:hover {
+            transform: translateX(5px);
+            background: #fff8f6;
+            box-shadow: 0 2px 4px rgba(255, 69, 0, 0.1);
+        }
+
+        .news-links a {
+            color: #2c5282;
+            text-decoration: none;
+            display: block;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .news-links .team-in-title a {
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        .news-links a:hover {
+            color: #ff4500;
+        }
     </style>
 </head>
 <body>
@@ -300,8 +521,15 @@
     <div class="basketball basketball-4">🏀</div>
     <div class="container">
         <h1>🏀 AI Basketball Bracket Analyzer 🏀</h1>
-        <h2>Upload or Paste a Basketball Bracket and Ask Questions!</h2>
+        <h2>Upload or Paste a Basketball Bracket</h2>
         <form id="uploadForm">
+            <div class="form-group">
+                <label for="bracketType">Choose Your Tournament</label>
+                <select id="bracketType" name="bracketType" required>
+                    <option value="mens">Men's Tournament 👨</option>
+                    <option value="womens">Women's Tournament 👩</option>
+                </select>
+            </div>
             <div class="upload-section">
                 <label for="imageInput" class="upload-btn">Upload a Bracket Image</label>
                 <input type="file" id="imageInput" accept="image/*">
@@ -330,6 +558,7 @@ const uploadForm = document.getElementById('uploadForm');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const resultDiv = document.getElementById('result');
 const removeImageBtn = document.getElementById('removeImageBtn');
+const bracketTypeSelect = document.getElementById('bracketType');
 
 let pastedImageFile = null; // Variable to store the pasted image file
 
@@ -390,6 +619,7 @@ function displayImage(file) {
 uploadForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const imageFile = imageInput.files[0] || pastedImageFile;
+    const bracketType = bracketTypeSelect.value;
     if (!imageFile) {
         alert('Please upload or paste an image');
         return;
@@ -402,6 +632,7 @@ uploadForm.addEventListener('submit', async (e) => {
     try {
         const formData = new FormData();
         formData.append('image', imageFile);
+        formData.append('bracketType', bracketType);
 
         console.log("Sending request to analyze-image...");
         const response = await fetch('/analyze-image', {
