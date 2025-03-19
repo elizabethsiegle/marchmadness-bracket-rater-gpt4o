@@ -1,4 +1,4 @@
-# NCAA Basketball Stats & Analysis App
+# NCAA Bracket Rater with OpenAI GPT-4o, Cloudflare Workers, SerpAPI
 
 A Cloudflare Workers application that analyzes an input March Madness bracket. If the bracket is empty, it provides recommendations of how to fill out certain match-ups. If the bracket is not empty, it provides an analysis of the bracket, including a rating of the bracket and suggestions for improvement.
 
