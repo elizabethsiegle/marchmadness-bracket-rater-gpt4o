@@ -190,7 +190,7 @@ export default {
                     },
                     {
                         role: 'user',
-                        content: `Initial bracket analysis: ${initialAnalysis}\n\nRecent news and stats about top teams:\n${searchContext}\n\nAnalyze this ${bracketType === 'mens' ? "men's" : "women's"} bracket incorporating the recent information. Relate it to the input bracket. Roast them, return a grade and detailed analysis of the bracket choices. Do not add any headers or titles to your response.`
+                        content: `Initial bracket analysis: ${initialAnalysis}\n\nRecent news and stats about top teams:\n${searchContext}\n\nAnalyze this ${bracketType === 'mens' ? "men's" : "women's"} bracket incorporating the recent information. Relate it to the input bracket. Return a grade of A, B, C, D, or F based on the user's predictions and why. Roast them and provide a detailed analysis of the bracket choices. Do not add any headers or titles to your response.`
                     }
                 ],
                 max_tokens: 1000
